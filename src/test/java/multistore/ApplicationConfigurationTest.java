@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.test.context.junit4.SpringRunner;
-
 
 
 @RunWith(SpringRunner.class)
@@ -50,10 +48,8 @@ public class ApplicationConfigurationTest {
 
     @Test
     public void cadastrarMongo() {
-        LineItem item = new LineItem("t1", 1);
-        ArrayList<LineItem> itens = new ArrayList<>();
-        itens.add(item);
-        Order order = new Order("1", new Date(), itens);
+        LineItem itens = new LineItem("t1", 1);
+        Order order = new Order("1", new Date().from(Instant.now()), List.of(itens));
         Order newOrder = orderRepository.save(order);
 
         assertNotNull(newOrder);
